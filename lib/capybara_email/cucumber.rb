@@ -1,8 +1,11 @@
 # require this in your env.rb file after you require cucumber/rails/world
+require 'capybara_email/inbox'
 
 # Global Setup
 if defined?(ActionMailer)
-  ActionMailer::Base.delivery_method = :cache
+  unless [:test, :cache].include?(ActionMailer::Base.delivery_method)
+    ActionMailer::Base.delivery_method = :cache
+  end
   ActionMailer::Base.perform_deliveries = true
 
   Before do

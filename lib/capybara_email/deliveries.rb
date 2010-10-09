@@ -12,7 +12,7 @@ module CapybaraEmail
       include CapybaraEmail::Deliveries::TestMailer
     else
       puts ActionMailer::Base.delivery_method.inspect if $DEBUG
-      raise('Unsupported ActionMailer delivery method')
+      raise('* Unsupported ActionMailer delivery method')
     end
   end
 end

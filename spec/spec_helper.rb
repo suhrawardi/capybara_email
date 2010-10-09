@@ -9,6 +9,7 @@ ActionMailer::Base.delivery_method = delivery_method
 require 'rspec'
 require 'mail'
 require 'cache_mailer'
+require 'capybara_email/inbox'
 require File.expand_path(File.dirname(__FILE__) + '/../lib/capybara_email.rb')
 
 puts "Using the #{ActionMailer::Base.delivery_method} delivery method"

@@ -1,6 +1,11 @@
 = capybara_email
 
-Description goes here.
+Add this to your features/support/evn.rb file:
+
+  # Make sure this require is after you require cucumber/rails/world.
+  ActionMailer::Base.delivery_method = :cache
+  require 'capybara_email/cucumber'
+
 
 == Note on Patches/Pull Requests
  
