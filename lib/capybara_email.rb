@@ -1,3 +1,5 @@
+#$DEBUG = true
+
 require 'action_mailer'
 require 'cache_mailer'
 

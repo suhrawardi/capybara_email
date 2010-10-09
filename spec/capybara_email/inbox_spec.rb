@@ -4,16 +4,20 @@ describe CapybaraEmail::Inbox do
   include CapybaraEmail::Inbox
 
   before do
-    ActionMailer::Base.perform_deliveries = true
     reset_mailer
-    mail = SpecEmail.send_one
-    mail.deliver
+    ActionMailer::Base.perform_deliveries = true
+    send_email
   end
 
   describe 'using cache_mailer' do
   
     it 'should have 1 email in the inbox' do
       inbox.size.should == 1
+    end
+
+    it 'should have 2 emails if I send another one' do
+      send_email(:to => 'joe@example.host', :subject => 'Second email')
+      inbox.size.should == 2
     end
 
   end

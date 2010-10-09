@@ -2,12 +2,11 @@ module CapybaraEmail
   module Deliveries
     module TestMailer
       def all_emails
-        d = mailer.deliveries
-        puts d.inspect if $DEBUG
-        d
+        mailer.deliveries
       end
 
       def reset_mailer
+        puts 'Cleaning the :test deliveries' if $DEBUG
         mailer.deliveries = []
       end
     end

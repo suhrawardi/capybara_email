@@ -2,12 +2,11 @@ module CapybaraEmail
   module Deliveries
     module CacheMailer
       def all_emails
-        d = mailer.deliveries
-        puts d.inspect if $DEBUG
-        d
+        mailer.deliveries
       end
 
       def reset_mailer
+        puts 'Cleaning the :cache deliveries' if $DEBUG
         mailer.clear_cache!
       end
     end
