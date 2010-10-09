@@ -9,6 +9,7 @@ if defined?(ActionMailer)
     # Scenario setup
     case ActionMailer::Base.delivery_method
       when :cache then Mail::CacheMailer.clear_cache!
+      when :test then Mail::TestMailer.deliveries.clear
     end
   end
 end
