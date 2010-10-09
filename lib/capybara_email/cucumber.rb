@@ -13,4 +13,4 @@ if defined?(ActionMailer)
   end
 end
 
-World(CapybaraEmail::Helpers)
+World(CapybaraEmail::Inbox)
