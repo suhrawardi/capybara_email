@@ -27,7 +27,7 @@ module CapybaraEmail
 
     def open_email_to(to)
       inbox.find do |m|
-        m.to =~ /#{to}/
+        m.to.select{|email| email =~ /#{to}/}.size == 1
       end
     rescue
       raise('Nothing found')
@@ -35,7 +35,7 @@ module CapybaraEmail
 
     def open_email_from(from)
       inbox.find do |m|
-        m.from =~ /#{from}/
+        m.from.select{|email| email =~ /#{from}/}.size == 1
       end
     rescue
       raise('Nothing found')

@@ -49,16 +49,44 @@ describe CapybaraEmail::Inbox do
     end
 
     it 'should find an email for a given addressee' do
+      send_email(:to => 'joe@test.host', :subject => 'Fourth email')
       open_email(:to, 'joe@test.host').subject.should == 'Fourth email'
     end
   end
 
   describe 'finding an email by sender' do
+    before do
+      send_email(:to => 'john@test.host', :subject => 'Just an email')
+      send_email(:to => 'jenny@test.host', :subject => 'Second email')
+    end
+    
+    it 'should find the last email by a given sender' do
+      open_email_from('mail@test.host').subject.should == 'Second email'
+    end
   end
 
   describe 'finding an email by receiver' do
+    before do
+      send_email(:to => 'john@test.host', :subject => 'Just an email')
+      send_email(:to => 'jenny@test.host', :subject => 'Just an email')
+      send_email(:to => 'jenny@test.host', :subject => 'Third email')
+    end
+    
+    it 'should find the last email by a given receiver' do
+      open_email_to('jenny@test.host').subject.should == 'Third email'
+    end
   end
 
   describe 'finding an email by subject' do
+    before do
+      send_email(:to => 'john@test.host', :subject => 'Just an email')
+      send_email(:to => 'jenny@test.host', :subject => 'Just an email')
+      send_email(:to => 'jenny@test.host', :subject => 'Third email')
+    end
+    
+    it 'should find the last email by a given sender' do
+      open_email_with_subject('Just an email').
+        to.should include('jenny@test.host')
+    end
   end
 end
