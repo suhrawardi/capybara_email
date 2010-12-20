@@ -1,4 +1,5 @@
 require 'capybara_email/deliveries'
+require 'capybara_email/mail_message'
 
 module CapybaraEmail
   module Inbox

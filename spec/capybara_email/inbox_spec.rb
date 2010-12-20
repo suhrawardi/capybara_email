@@ -89,4 +89,27 @@ describe CapybaraEmail::Inbox do
         to.should include('jenny@test.host')
     end
   end
+
+  describe 'body' do
+    before do
+      send_email(:to => 'jenny@test.host', :subject => 'Just an email')
+    end
+    
+    it 'should find the last email by a given sender' do
+      open_email_with_subject('Just an email').message_body.
+        should =~ /HTML content/
+    end
+  end
+
+  describe 'url_to' do
+    before do
+      @href = 'http://www.nu.nl/home.php?page=1'
+      html = "<p>o<a href=\"#{@href}\">ooo</a>o</p>"
+      send_email(:html_content => html, :subject => 'With a link')
+    end
+    
+    it 'should return an url for a given link' do
+      open_email_with_subject('With a link').url_to('ooo').should == @href
+    end
+  end
 end
