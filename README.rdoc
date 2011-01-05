@@ -1,5 +1,8 @@
 = capybara_email
 
+Many thanks go to Ben Mabey, Aaron Gibralter and Mischa Fierer, who made the email_spec gem, which I used as a source of inspiration.
+
+
 Add this to your features/support/evn.rb file:
 
   # Make sure this require is after you require cucumber/rails/world.
@@ -16,6 +19,36 @@ Add this to your features/support/evn.rb file:
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
+
+
+== Steps you can use in Cucumber
+
+  Given /^(?:a clear email queue|no emails have been sent)$/ do
+    reset_mailer
+  end
+
+  # Check how many emails have been sent/received
+
+  Then /^I should receive (an|no|\d+) emails?$/ do |amount|
+    inbox.size.should == to_nr(amount)
+  end
+
+  # Act !
+
+  When /^I follow "([^"]*?)" in the email(?: (with subject|to|from) "([^\"]*)")?$/ do |text, select, value|
+    visit(open_email(select, value).url_to(value))
+  end
+
+  # Inspect the Email Contents
+
+  When /^I should see "([^"]*?)" in the email(?: (with subject|to|from) "([^\"]*)")?$/ do |text, select, value|
+    open_email(select, value).message_body.to_s.should include(text)
+  end
+
+  Then /^I should see "([^"]*?)" in the email subject$/ do |text|
+    open_email_with_subject(value).size.should == 1
+  end
+
 
 == Copyright
 
